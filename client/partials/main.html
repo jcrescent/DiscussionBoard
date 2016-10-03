@@ -1,0 +1,23 @@
+<h1>The Wall</h1>
+<h3>Welcome {{user.name}}!</h3>
+<hr>
+<form ng-submit="newMessage()">
+Post a message:
+	<textarea ng-model="newMessagePost.text"></textarea>
+	<input type="submit" value="Post message">
+</form>
+
+<div ng-repeat= "message in messages track by message._id">
+	 <h4>{{message._user.name}}  {{message.createdAt|date: "hh:mm a MM/dd/yyyy"}}</h4>
+	 <p>{{message.text}}</p>
+	 <div ng-repeat="comment in message._comments">
+	 	<h5>{{comment._user.name}} {{comment.createdAt|date: "hh:mm a MM/dd/yyyy"}}</h5>
+	 	<p>{{comment.text}}</p>
+	 </div>
+	 <form ng-submit="newComment(message._id)">
+	 	<textarea ng-model="messages[message._id].comment"></textarea>
+	 	<input type="submit" value="Post Comment">
+	 </form>
+</div>
+
+
