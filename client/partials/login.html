@@ -1,5 +1,77 @@
+<!-- <form ng-submit='validate()'>
+	Email: <input type="text" ng-model='newUser.email'>
+	<p>{{errors.email.message}}</p>
+	<p>{{dup_error}}</p>
+	First Name: <input type="text" ng-model='newUser.first'>
+	<p>{{errors.first.message}}</p>
+	Last Name: <input type="text" ng-model='newUser.last'>
+	<p>{{errors.last.message}}</p>
+	Password: <input type="password" ng-model='newUser.password'>
+	<p>{{errors.password.message}}</p>
+	Confrim: <input type="password" ng-model='newUser.confirm'>
+	<p>{{pass_confirm}}</p>
+	Birthday: <input type="date" ng-model="newUser.birth">
+	<p>{{errors.birth.message}}</p>
+	<input type="submit" name="Submit">
+</form>
+
 <form ng-submit='login()'>
 	Username: <input type="text" ng-model="user.name">
 	<p>{{error}}</p>
 	<input type="submit" value="Login">
-</form>
+</form> -->
+
+<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+	<div>
+		<md-input-container>
+			<label>First Name</label>
+			<input required name='first' ng-model='newUser.first' md-maxlength="30">
+			<div ng-messages="newUser.first.$error">
+				<div ng-message="md-maxlength">First name must be less than 30 characters long.</div>
+				<div ng-message='required'>This is required.</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container>
+			<label>Last Name</label>
+			<input required name='last' ng-model='newUser.last' md-maxlength="30">
+			<div ng-messages="newUser.first.$error">
+				<div ng-message="md-maxlength">Last name must be less than 30 characters long.</div>
+				<div ng-message='required'>This is required.</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container>
+			<label>Username</label>
+			<input required name='username' ng-model='newUser.username'>
+			<div ng-messages="newUser.username.$error">
+				<div ng-message="md-maxlength">Last name must be less than 30 characters long.</div>
+				<div ng-message='required'>This is required.</div>
+			</div>			
+		</md-input-container>
+
+		<md-input-container>
+			<label>Password</label>
+			<input required name="password" ng-model="newUser.password" ng-pattern='/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/' type="password">
+			<div ng-messages="newUser.password.$error">
+				<div ng-message="md-maxlength">Last name must be less than 30 characters long.</div>
+				<div ng-message-exp= "['required', 'maxlength', 'minlength', 'pattern']">This is required.</div>
+			</div>			
+		</md-input-container>
+
+		<md-input-container>
+			<label>Password Confirmation</label>
+			<input required name='username' ng-model='newUser.username' ng-pattern='/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/' type="password">
+			<div ng-messages="newUser.username.$error">
+				<div ng-message="md-maxlength">Last name must be less than 30 characters long.</div>
+				<div ng-message='required'>This is required.</div>
+			</div>			
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>Biography</label>
+			<textarea name='desc' ng-model="newUser.desc" md-maxlength="200" rows="5" md-select-on-focus></textarea>
+		</md-input-container>
+
+	</div>
+</md-content>

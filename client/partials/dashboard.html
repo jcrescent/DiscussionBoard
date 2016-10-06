@@ -1,5 +1,59 @@
-<h1>Welcome {{user.name}}</h1>
-<table>
+ 
+<!-- <div flex></div>
+
+<md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+	<md-toolbar class="md-theme-light">
+		<h1 class="md-toolbar-tools">{{user.name}}</h1>
+	</md-toolbar>
+	<md-content layout-padding>
+		<form>
+  			<md-input-container>
+    			<label for="testInput">Test input</label>
+    			<input type="text" id="testInput"
+           				ng-model="data" md-autofocus>
+  			</md-input-container>
+		</form>
+		<md-button ng-click="close()" class="md-primary">
+  			Close Sidenav Right
+		</md-button>
+	</md-content>
+</md-sidenav> -->
+
+<md-card md-colors="::{backgroundColor: '{{theme}}-primary-700'}">
+  	<md-card-title>
+    	<md-card-title-media>
+      		<div class="md-media-sm card-media" layout md-colors="::{background: '{{theme}}-accent'}">
+        		<md-icon md-svg-icon="person"></md-icon>
+      		</div>
+    	</md-card-title-media>
+    	<md-card-title-text>
+      		<span class="md-headline">{{user.name}}</span>
+      		<span class="md-subhead description">This card is colored according the {{theme}} theme</span>
+    	</md-card-title-text>
+  </md-card-title>
+</md-card>
+
+<div ng-repeat='topic in topics'>
+	<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+	<md-button>
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline"><a href="#/user/{{topic._user._id}}">{{topic._user.name}}</a></span>
+				<span class="md-headline"><a href="#/topic/{{topic._id}}">{{topic.name}}</a></span>
+				<span class="md-subhead">{{topic.category}}</span>
+			</md-card-title-text>
+			<md-card-title-media>
+				<div class="md-media-sm card-media"></div>
+			</md-card-title-media>
+		</md-card-title>
+		<md-card-actions layout="row" layout-align="end center">
+		<md-button>Action 1</md-button>
+		<md-button>Action 2</md-button>
+		</md-card-actions>
+	</md-button>
+	</md-card>
+</div>
+<!-- <table>
 	<thead>
 		<th>Category</th>
 		<th>Topic</th>
@@ -13,7 +67,7 @@
 			<td><a href="#/user/{{topic._user._id}}">{{topic._user.name}}</a></td>
 			<td>{{topic._messages.length}}</td>
 	</tbody>
-</table>
+</table> -->
 
 <h3>Add a Topic</h3>
 <form ng-submit='addTopic()'>
