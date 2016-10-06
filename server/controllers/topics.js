@@ -6,7 +6,7 @@ var Topics = mongoose.model('Topics');
 
 function TopicsController(){
 	this.index = function(req, res){
-		Topics.find({});
+		Topics.find({})
 		.populate('_user')
 		.exec(function(err, topics){
 			if(err){
@@ -17,8 +17,8 @@ function TopicsController(){
 		})
 	}
 	this.create = function(req, res){
-		User.findOne({_id: req.body._userid}, function(err, user){
-			var new_topic = new Topics({name: req.body.name};
+		Users.findOne({_id: req.body._userid}, function(err, user){
+			var new_topic = new Topics({name: req.body.name, description: req.body.desc});
 			new_topic._user = req.body._userid;
 			new_topic.save(function(err){
 				user._topics.push(new_topic._id);
@@ -29,7 +29,19 @@ function TopicsController(){
 		})
 	}
 	this.show = function(req, res){
-		Topic.findOne({_id: req.body.id}, function(err, topic){
+		Topics.findOne({_id: req.params.id})
+		.populate({
+			path: '_messages', 
+				populate:[
+					{path: "_user"},
+					{path: "_comments", 
+						populate:
+						{path: "_user"}
+					}
+				]
+		})
+		.populate("_user")
+		.exec(function(err, topic){
 			if(err){
 				res.json(err);
 			}else{

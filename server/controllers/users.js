@@ -24,22 +24,29 @@ function UsersController(){
 			}
 		})
     }
-    this.read = function(req, res){
-    	Users.findOne({_id: req.body.id}, function(err, user){
-            .populate('_messages')
-            .exec(function(err, users){
-                if(err){
-                    res.json(err);
-                }else{
-                    res.json(users);
-                }
-            })
-    	}
-    }	
-    this.update = function(req, res){
-    	Users.findOne({_id: req.body.id}, function(err, user){
+    this.show = function(req, res){
+    	Users.findOne({_id: req.body.id})
+        .populate({
+            path: '_messages', 
+                populate:[{
+                    path: "_comments",
+                        populate:[{
+                            path:"_user"
+                        }] 
+                    }]
+                })
+        .exec(function(err, user){
+            if(err){
+                res.json(err);
+            }else{
+                res.json(user);
+            }
+        })
+	}
+    // this.update = function(req, res){
+    // 	Users.findOne({_id: req.body.id}, function(err, user){
 
-    	})
-    }
+    // 	})
+    // }
 }
 module.exports = new UsersController();

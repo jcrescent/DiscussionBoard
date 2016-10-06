@@ -8,6 +8,7 @@ var UserSchema = new mongoose.Schema({
 		minlength: [2, "Username must be at least two characters"], 
 		required: [true, "Username is required"]
 	},
+	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
 	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
 	_comments: [{type: Schema.Types.ObjectId, ref: "Comments"}]
 	},	{timestamps: true});
@@ -20,8 +21,8 @@ var TopicSchema = new mongoose.Schema({
 	description: {
 		type: String, 
 		required: [true, "Must enter a description"]
-	} 
-	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}]
+	},
+	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
 	_user: {type: Schema.Types.ObjectId, ref: "Users"}
 	}, {timestamps: true});
 
@@ -32,7 +33,8 @@ var MessageSchema = new mongoose.Schema({
 		required: [true, 'Must enter a message']
 	},
 	_comments: [{type: Schema.Types.ObjectId, ref: "Comments"}],
-	_user: {type: Schema.Types.ObjectId, ref: "Users"}
+	_user: {type: Schema.Types.ObjectId, ref: "Users"},
+	_topic: {type: Schema.Types.ObjectId, ref: "Topics"}
 	}, {timestamps: true});
 	
 var CommentSchema = new mongoose.Schema({
@@ -41,12 +43,19 @@ var CommentSchema = new mongoose.Schema({
 	_user: {type: Schema.Types.ObjectId, ref: "Users"} 
 	}, {timestamps: true});	
 
+var CategorySchema = new mongoose.Schema({
+	name: {type: String},
+	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
+}, {timestamps: true});
+
 mongoose.model('Users', UserSchema);
 var Users = mongoose.model('Users')
 mongoose.model('Messages', MessageSchema); 
 var Messages = mongoose.model('Messages')
 mongoose.model('Comments', CommentSchema); 
 var Comments = mongoose.model('Comments')
+mongoose.model('Topics', TopicSchema);
+var Topics = mongoose.model('Topics') 
 // 	email: {
 // 		type: String, 
 // 		unique: true,
