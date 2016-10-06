@@ -8,6 +8,7 @@ app.controller("mainController", ['$scope', 'UsersFactory', '$location', '$cooki
 		})
 	}
 	$scope.newMessage = function(){
+		$scope.newMessagePost._topic = $scope.topic._id
 		$scope.newMessagePost._user = $scope.user._id;
 		UsersFactory.createMessage($scope.newMessagePost, function(){
 			$scope.newMessagePost = {};

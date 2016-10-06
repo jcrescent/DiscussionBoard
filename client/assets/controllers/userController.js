@@ -1,5 +1,5 @@
 app.controller('userController', ['$scope', 'UsersFactory', '$location', '$cookies', '$routeParams', function($scope, UsersFactory, $location, $cookies, $routeParams){
-	$scope.user = $cookies.getOject('user');
+	$scope.user = $cookies.getObject('user');
 	$scope.viewser; 
 
 	$scope.getUser = function(){

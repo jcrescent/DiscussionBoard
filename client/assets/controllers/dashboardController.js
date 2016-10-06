@@ -1,6 +1,8 @@
 app.controller('dashboardController', ['$scope', 'UsersFactory', '$location', '$cookies', function($scope, UsersFactory, $location, $cookies){
-	$scope.user = $cookies.getOject('user');
+	$scope.user = $cookies.getObject('user');
 	$scope.topics = [];
+	$scope.newTopic = {}; 
+
 	$scope.allTopics = function(){
 		UsersFactory.allTopics(function(results){
 			$scope.topics = results;
@@ -8,8 +10,10 @@ app.controller('dashboardController', ['$scope', 'UsersFactory', '$location', '$
 	}
 	$scope.addTopic = function(){
 		$scope.newTopic._userid = $scope.user._id;
-		UsersFactory.createTopic($scope.newTopic, function(){
-
+		UsersFactory.addTopic($scope.newTopic, function(results){
+			$scope.newTopic = {};
+			$scope.allTopics();
 		})
 	}
-}
+	$scope.allTopics()
+}])

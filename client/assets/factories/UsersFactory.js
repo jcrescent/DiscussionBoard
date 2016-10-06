@@ -7,7 +7,7 @@ function UsersFactory(){
 		})
 	}
 	this.createMessage = function(message, callback){
-		$http.post('/add_message', message).then(function(results){
+		$http.post('/messages/create', message).then(function(results){
 			callback(results.data);
 		})
 	}
@@ -16,13 +16,13 @@ function UsersFactory(){
 			callback(results.data);
 		})
 	}
-	this.allMessages = function(callback){
-		$http.get('/messages').then(function(results){
+	this.getMessages = function(topic_id, callback){
+		$http.get('/messages', topic_id).then(function(results){
 			callback(results.data);
 		})
 	}
-	this.createTopic = function(topic, callback){
-		$http.post('/add_topic', topic).then(function(results){
+	this.addTopic = function(topic, callback){
+		$http.post('/topics/create', topic).then(function(results){
 			callback(results.data);
 		})
 	}
@@ -31,14 +31,14 @@ function UsersFactory(){
 			callback(results.data);
 		})
 	}	
-	this.getUser = function(user, callback){
-		$http.get('/user/', user).then(function(results){
+	this.getUser = function(id, callback){
+		$http.get(`/users/${id}`, id).then(function(results){
 			callback(results.data);
 		})
 	}
 	this.getTopic = function(id, callback){
 		$http.get(`/topics/${id}`).then(function(results){
-			calback(results.data);
+			callback(results.data);
 		})
 	}	
 }

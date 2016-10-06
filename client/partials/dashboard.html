@@ -9,18 +9,18 @@
 	<tbody>
 		<tr ng-repeat="topic in topics">
 			<td>{{topic.category}}</td>
-			<td><a href="#/user/{{topic._user._id}}">{{topic._user.name}}</a></td>
 			<td><a href="#/topic/{{topic._id}}">{{topic.name}}</a></td>
-			<td>{{topic.posts}}</td>
+			<td><a href="#/user/{{topic._user._id}}">{{topic._user.name}}</a></td>
+			<td>{{topic._messages.length}}</td>
 	</tbody>
 </table>
 
 <h3>Add a Topic</h3>
 <form ng-submit='addTopic()'>
-	Topic: <input type="text" ng-model="newTopic.topic">
+	Topic: <input type="text" ng-model="newTopic.name">
 	Description: <textarea ng-model="newTopic.desc"></textarea>
 	Category: <select ng-model="newTopic.category">
 					<option ng-repeat="category in categories">{{category.name}}</option>
 			</select>
-	<input type="submit" value>
+	<input type="submit" value="Add Topic">
 </form>

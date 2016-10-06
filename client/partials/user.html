@@ -1,3 +1,14 @@
 <h1>{{viewser.name}}</h1>
 <h3>Recent Messages</h3>
-<div ng-repeat='message in viewser._messages'>{{message._messages}}</div>
+<div ng-repeat='message in viewser._messages'>
+	<h4>{{message.text}}</h4>
+	<div ng-repeat = 'comment in message.comments'>
+	<p>{{comment.text}}</p>
+	<p>{{commnet._user}}</p>
+</div>
+<h3>Topics</h3>
+<div ng-repeat=''></div>
+	<h4>{</h4>
+
+
+
