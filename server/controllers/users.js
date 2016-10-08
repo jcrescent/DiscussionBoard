@@ -7,16 +7,22 @@ var Topics = mongoose.model('Topics');
 function UsersController(){
 
 	this.create = function(req,res){
-		Users.findOne({name: req.body.name}, function(err, user){
+		Users.findOne({username: req.body.username}, function(err, user){
 			if(user === null){
-				var new_user = new Users({name: req.body.name})
-    			new_user.save(function(err){
+				var new_user = new Users(
+                    {
+                        name: req.body.name,
+                        last: req.body.last,
+                        email: req.body.email,
+                        username: req.body.username,
+                        description: req.body.description,
+                        password: req.body.password
+                    })
+    			new_user.save(function(err, registered){
     				if(err){
-    					console.log('could not add new user')
     					res.json(err);
     				}else{
-    					console.log('added');
-    					res.json(new_user);
+    					res.json(registered);
     				}
     			})
 			}else{
@@ -43,10 +49,5 @@ function UsersController(){
             }
         })
 	}
-    // this.update = function(req, res){
-    // 	Users.findOne({_id: req.body.id}, function(err, user){
-
-    // 	})
-    // }
 }
 module.exports = new UsersController();

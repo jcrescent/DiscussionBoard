@@ -4,48 +4,60 @@ var Schema = mongoose.Schema
 var UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		maxlength: [30,"Username should be less than 30 characters"], 
-		minlength: [2, "Username must be at least two characters"], 
-		required: [true, "Username is required"],
-		validate: [{
-			validator: function(string){
-				return /[A-Za-z]/.test(string)
-			},
-			message: "Invalid name"
-			}, 
-		]
+		// maxlength: [30,"Username should be less than 30 characters"], 
+		// minlength: [2, "Username must be at least two characters"], 
+		// required: [true, "Username is required"],
+		// validate: [{
+		// 	validator: function(string){
+		// 		return /[A-Za-z]/.test(string)
+		// 	},
+		// 	message: "Invalid name"
+		// 	}, 
+		// ]
 	},
 	last: {
 		type: String,
-		required:[true, "Last name required"],
-		validate: [{
-			validator: function(string){
-				return /[A-Za-z]/.test(string)
-			},
-			message: "Invalid name"
-			}, 
-		]
+		// required:[true, "Last name required"],
+		// validate: [{
+		// 	validator: function(string){
+		// 		return /[A-Za-z]/.test(string)
+		// 	},
+		// 	message: "Invalid name"
+		// 	}, 
+		// ]
+	},
+	email: {
+		type: String, 
+		unique: true,
+		// required: [true, "Email address required"], 
+		// validate: [{
+		// 	validator: function(string) {
+		// 		return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(string)
+		// 	}, 
+		// 	message: "Invalid Email Address"
+		// 	},
+		// ]
 	},
 	username: {
-		type: String
-	}
+		type: String,
+		unique: true
+	},
 	description:{
 		type: String, 
-		maxlength: [200, "description too long"],
-
+		// maxlength: [200, "description too long"]
 	},
 	password: {
 		type: String, 
-		required: [true, "Must enter a password"], 
-		minlength: [8, "Password too short"],
-		maxlength: [32, "Password too long"],
-		validate: [{
-			validator: function(string) {
-				return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/.test( string );
-          },
-          	message: "Your password must have at least 1 number, uppercase and special character"
-        	}
-		]
+	// 	required: [true, "Must enter a password"], 
+	// 	minlength: [8, "Password too short"],
+	// 	maxlength: [32, "Password too long"],
+	// 	validate: [{
+	// 		validator: function(string) {
+	// 			return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/.test( string );
+ //          },
+ //          	message: "Your password must have at least 1 number, uppercase and special character"
+ //        	}
+	// 	]
 	},  
 	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
 	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
@@ -84,6 +96,7 @@ var CommentSchema = new mongoose.Schema({
 
 var CategorySchema = new mongoose.Schema({
 	name: {type: String},
+	description: {type: String}, 
 	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
 }, {timestamps: true});
 
@@ -94,7 +107,9 @@ var Messages = mongoose.model('Messages')
 mongoose.model('Comments', CommentSchema); 
 var Comments = mongoose.model('Comments')
 mongoose.model('Topics', TopicSchema);
-var Topics = mongoose.model('Topics') 
+var Topics = mongoose.model('Topics');
+mongoose.model("Categories", CategorySchema);
+var Categories = mongoose.model("Categories");
 // 	email: {
 // 		type: String, 
 // 		unique: true,
