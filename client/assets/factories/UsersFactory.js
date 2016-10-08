@@ -1,10 +1,19 @@
 app.factory('UsersFactory', ['$http', function($http) {
 
+
 function UsersFactory(){
-	this.validation = function(user, callback){
+	var	_this = this
+	_this.user = {};
+	this.createUser = function(user, callback){
 		$http.post('/users/create', user).then(function(results){
-			callback(results.data);
+			_this.user._id = results.data._id
+			_this.user.username = results.data.username
+			_this.user.description = results.data.description
+			callback(_this.user);
 		})
+	}
+	this.getLoggedInUser = function(callback){
+		callback(_this.user);
 	}
 	this.createMessage = function(message, callback){
 		$http.post('/messages/create', message).then(function(results){
@@ -21,7 +30,7 @@ function UsersFactory(){
 			callback(results.data);
 		})
 	}
-	this.addTopic = function(topic, callback){
+	this.createTopic = function(topic, callback){
 		$http.post('/topics/create', topic).then(function(results){
 			callback(results.data);
 		})
@@ -38,6 +47,16 @@ function UsersFactory(){
 	}
 	this.getTopic = function(id, callback){
 		$http.get(`/topics/${id}`).then(function(results){
+			callback(results.data);
+		})
+	}
+	this.getCategory = function(id, callback){
+		$http.get(`/category/${id}`).then(function(results){
+			callback(results.data);
+		})
+	}
+	this.allCategories = function(callback){
+		$http.get('/categories').then(function(results){
 			callback(results.data);
 		})
 	}	

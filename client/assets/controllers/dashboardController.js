@@ -1,70 +1,32 @@
 app.controller('dashboardController', ['$scope', 'UsersFactory', '$location', '$cookies','$timeout', '$mdSidenav', '$log', function($scope, UsersFactory, $location, $cookies,$timeout, $mdSidenav, $log){
+	var all = {name: "All", description: "All topics from all Dojos"}
 	$scope.user = $cookies.getObject('user');
 	$scope.topics = [];
 	$scope.newTopic = {};
-    $scope.toggleRight = buildToggler('right');
-    
-    $scope.isOpenRight = function(){
-      return $mdSidenav('right').isOpen();
-  	}
-	function debounce(func, wait, context) {
-      var timer;
-
-      return function debounced() {
-        var context = $scope,
-            args = Array.prototype.slice.call(arguments);
-        $timeout.cancel(timer);
-        timer = $timeout(function() {
-          timer = undefined;
-          func.apply(context, args);
-        }, wait || 10);
-      };
+	$scope.category = all;
+	$scope.categories = [];
+	$scope.selected;
+ 
+    $scope.allCategories = function(){
+    	UsersFactory.allCategories(function(results){
+    		$scope.categories = results;
+    	});
     }
-
-    /**
-     * Build handler to open/close a SideNav; when animation finishes
-     * report completion in console
-     */
-    function buildDelayedToggler(navID) {
-      return debounce(function() {
-        // Component lookup should always be available since we are not using `ng-if`
-        $mdSidenav(navID)
-          .toggle()
-          .then(function () {
-            $log.debug("toggle " + navID + " is done");
-          });
-      }, 200);
-    }
-
-    function buildToggler(navID) {
-      return function() {
-        // Component lookup should always be available since we are not using `ng-if`
-        $mdSidenav(navID)
-          .toggle()
-          .then(function () {
-            $log.debug("toggle " + navID + " is done");
-          });
-      }
-    }
-
 	$scope.allTopics = function(){
 		UsersFactory.allTopics(function(results){
 			$scope.topics = results;
-		})
+		});
 	}
-	$scope.addTopic = function(){
+	$scope.createTopic = function(){
 		$scope.newTopic._userid = $scope.user._id;
 		UsersFactory.addTopic($scope.newTopic, function(results){
 			$scope.newTopic = {};
 			$scope.allTopics();
-		})
+		});
 	}
-	$scope.close = function () {
-      // Component lookup should always be available since we are not using `ng-if`
-      $mdSidenav('right').close()
-        .then(function () {
-          $log.debug("close RIGHT is done");
-        });
-    }
-	$scope.allTopics()
+	$scope.selectCategory = function(category){
+		$scope.category = category;
+	}
+	$scope.allCategories();
+	$scope.allTopics();
 }])

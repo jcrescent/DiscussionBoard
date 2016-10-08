@@ -20,7 +20,7 @@ $routeProvider
 	})
 	.when('/', {
 		templateUrl: "partials/login.html",
-		controller: "loginController"
+		controller: "userController"
 	})
 	.otherwise({
 		redirectTo: '/'
