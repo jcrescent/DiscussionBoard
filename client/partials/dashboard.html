@@ -2,35 +2,54 @@
  <md-toolbar>
 	<div class="md-toolbar-tools">
         <span flex>
-        <md-button class="md-raised">All</md-button>
-        <md-button ng-repeat="c in categories track by index" ng-disabled="selected == category._id" class="md-raised" ng-click="selectCategory(catgeory._id)">{{category.name}}</md-button>
-        <md-button class="md-raised">Random</md-button>
+	        <md-button ng-disabled="selected == all" class="md-raised" ng-click = "showall()">All</md-button>
+	        <md-button ng-repeat="category in categories " ng-disabled="selected == category" class="md-raised" ng-click="selectCategory(category)">{{category.name}}</md-button>
+	        <md-button class="md-raised">Random</md-button>
         </span>
 	</div>
 </md-toolbar>
 
     <md-card md-colors="::{backgroundColor: '{{theme}}-primary-700'}">
-  	<md-card-title>
-    	<md-card-title-media>
-      		<div class="md-media-sm card-media" layout md-colors="::{background: '{{theme}}-accent'}">
-        		<md-icon md-svg-icon="person"></md-icon>
-      		</div>
-    	</md-card-title-media>
-    	<md-card-title-text>
-      		<span class="md-headline">{{category.name}}</span>
-      		<span class="md-subhead description">{{category.description}}</span>
-    	</md-card-title-text>
-  </md-card-title>
-</md-card>
+	  	<md-card-title>
+	    	<md-card-title-media>
+	      		<div class="md-media-sm card-media" layout md-colors="::{background: '{{theme}}-accent'}">
+	        		<md-icon md-svg-icon="person"></md-icon>
+	      		</div>
+	    	</md-card-title-media>
+	    	<md-card-title-text>
+	      		<span class="md-headline">{{category.name}}</span>
+	      		<span class="md-subhead description">{{category.description}}</span>
+	    	</md-card-title-text>
+	    </md-card-title>
+	    <md-card-actions layout="row" layout-align="end center">
+	  		<md-button ng-click="show_topic_input()">New Topic</md-button>
+	    </md-card-actions>
+    </md-card>
 
-<div ng-repeat='topic in topics' ng-if='topic._category._id == selected'>
-	<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
-	<md-button>
+<form ng-submit='createTopic()' ng-show="topic_field">
+		<md-input-container class="md-block">
+			<label>Topic</label>
+			<input required ng-model='newTopic.name'>
+			<div ng-messages="newTopic.name.$error">
+				<div ng-message ="required">Topic is required</div>
+			</div>			
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>Description</label>
+			<textarea ng-model="newTopic.description" md-maxlength="1000" rows="10" md-select-on-focus></textarea>
+		</md-input-container>
+		<input type="submit" value="Post">
+</form>
+
+<div ng-repeat='topic in topics' ng-if='topic._category._id == selected._id || category == all'>
+	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+	<md-button ng-click = goToTopic(topic._id)>
 		<md-card-title>
 			<md-card-title-text>
-				<span class="md-headline"><a href="#/user/{{topic._user._id}}">{{topic._user.name}}</a></span>
-				<span class="md-headline"><a href="#/topic/{{topic._id}}">{{topic.name}}</a></span>
-				<span class="md-subhead">{{topic.category.name}}</span>
+				<span><span>{{topic._user.username}}</span> posted in <span>{{topic._category.name}}</span>:</span>
+				<span class="md-headline">{{topic.name}}</span>
+				<span class="md-subhead"></span>
 			</md-card-title-text>
 			<md-card-title-media>
 				<div class="md-media-sm card-media"></div>
@@ -43,13 +62,3 @@
 	</md-button>
 	</md-card>
 </div>
-
-<h3>Add a Topic</h3>
-<form ng-submit='addTopic()'>
-	Topic: <input type="text" ng-model="newTopic.name">
-	Description: <textarea ng-model="newTopic.desc"></textarea>
-	Category: <select ng-model="newTopic.category">
-					<option ng-repeat="category in categories">{{category.name}}</option>
-			</select>
-	<input type="submit" value="Add Topic">
-</form>

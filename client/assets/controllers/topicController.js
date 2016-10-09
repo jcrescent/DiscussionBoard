@@ -3,14 +3,19 @@ app.controller('topicController', ['$scope', 'UsersFactory', '$location', '$cook
 	$scope.topic;
 	$scope.newCommentPost={};
 	$scope.newMessagePost={};
+	$scope.message_field =false;
+	$scope.showMessageInput = function(){
+		$scope.message_field=!($scope.message_field)
 
+	}
 	$scope.getTopic = function(){
 		UsersFactory.getTopic($routeParams.id, function(results){
 			console.log(results);
 			$scope.topic = results;
 		})
+		
 	}
-	$scope.newMessage = function(){
+	$scope.createMessage = function(){
 		$scope.newMessagePost._topic = $scope.topic._id;
 		$scope.newMessagePost._user = $scope.user._id;
 		UsersFactory.createMessage($scope.newMessagePost, function(results){

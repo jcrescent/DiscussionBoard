@@ -29,15 +29,6 @@ app.controller('userController', ['$scope', 'UsersFactory', '$location', '$cooki
         }, wait || 10);
       };
     }
-    // function buildDelayedToggler(navID) {
-    //   return debounce(function() {
-    //     $mdSidenav(navID)
-    //       .toggle()
-    //       .then(function () {
-    //         $log.debug("toggle " + navID + " is done");
-    //       });
-    //   }, 200);
-    // }
     function buildToggler(navID) {
       return function() {
         $mdSidenav(navID)

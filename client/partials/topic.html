@@ -1,13 +1,37 @@
-<div>
-	<h1>{{topic.name}}</h1><p>{{topic._user.name}}</p>
-	<p>{{topic.description}}</p>
-	<p>votes</p>
 
-</div>
-<form ng-submit="newMessage()">
-Post a message:
-	<textarea ng-model="newMessagePost.text"></textarea>
-	<input type="submit" value="Post Message">
+<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+	<md-button ng-click = goToTopic(topic._id)>
+		<md-card-title>
+			<md-card-title-text>
+				<span><span>{{topic._user.username}}</span> posted in <span>{{topic._category.name}}</span>:</span>
+				<span class="md-headline">{{topic.name}}</span>
+				<span class="md-subhead"></span>
+			</md-card-title-Message
+			<md-card-title-media>
+				<div class="md-media-sm card-media"></div>
+			</md-card-title-media>
+		</md-card-title>
+		<md-card-actions layout="row" layout-align="end center">
+			<md-button ng-click="showMessageInput()">+Message</md-button>
+			<md-button>Upvote</md-button>
+			<md-button>Downvote</md-button>
+		</md-card-actions>
+	</md-button>
+</md-card>
+<form ng-submit='createMessage()' ng-show="message_field">
+		<md-input-container class="md-block">
+			<label>Topic</label>
+			<input required ng-model='newMessage.name'>
+			<div ng-messages="newMessage.name.$error">
+				<div ng-message ="required">Topic is required</div>
+			</div>			
+		</md-input-container>
+
+		<md-input-container class="md-block">
+			<label>Description</label>
+			<textarea ng-model="newMessage.description" md-maxlength="1000" rows="10" md-select-on-focus></textarea>
+		</md-input-container>
+		<input type="submit" value="Post">
 </form>
 
 <div ng-repeat= "message in topic._messages">
