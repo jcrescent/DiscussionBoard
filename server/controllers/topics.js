@@ -3,27 +3,44 @@ var Users = mongoose.model('Users');
 var Messages = mongoose.model('Messages');
 var Comments = mongoose.model('Comments');
 var Topics = mongoose.model('Topics');
+var Categories = mongoose.model('Categories');
 
 function TopicsController(){
 	this.index = function(req, res){
 		Topics.find({})
 		.populate('_user')
+		.populate('_category')
 		.exec(function(err, topics){
 			if(err){
-
+				res.json(err);
 			}else{
+				console.log(topics);
 				res.json(topics);
 			}
 		})
 	}
 	this.create = function(req, res){
 		Users.findOne({_id: req.body._userid}, function(err, user){
-			var new_topic = new Topics({name: req.body.name, description: req.body.desc});
+			var new_topic = new Topics({name: req.body.name, description: req.body.description, votes: 0;});
 			new_topic._user = req.body._userid;
+			console.log(new_topic)
 			new_topic.save(function(err){
 				user._topics.push(new_topic._id);
 				user.save(function(err){
-					res.send();
+					Categories.findOne({_id: req.body._categoryid}, function(err, category){
+						new_topic._category = req.body._categoryid;
+						new_topic.save(function(err){
+							console.log(new_topic)
+							category._topics.push(new_topic._id);
+							category.save(function(err){
+								if(err){
+									res.json(err)	
+								}else{
+								res.send();
+								}
+							})
+						})
+					})
 				})
 			})
 		})
@@ -41,6 +58,7 @@ function TopicsController(){
 				]
 		})
 		.populate("_user")
+		.populate("_category")
 		.exec(function(err, topic){
 			if(err){
 				res.json(err);
@@ -49,6 +67,7 @@ function TopicsController(){
 			}
 		})
 	}
+	this.vote = function
 }
 
 module.exports = new TopicsController();

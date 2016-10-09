@@ -73,8 +73,12 @@ var TopicSchema = new mongoose.Schema({
 		type: String, 
 		required: [true, "Must enter a description"]
 	},
+	votes: {
+		type: Number 
+	}
 	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
-	_user: {type: Schema.Types.ObjectId, ref: "Users"}
+	_user: {type: Schema.Types.ObjectId, ref: "Users"},
+	_category: {type: Schema.Types.ObjectId, ref: "Categories"}
 	}, {timestamps: true});
 
 var MessageSchema = new mongoose.Schema({
