@@ -1,6 +1,6 @@
 
-var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'ngCookies']);
-app.config(function ($routeProvider) {
+var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'ngCookies', ]);
+app.config(function ($routeProvider,$mdThemingProvider) {
 $routeProvider
 	.when('/main', {
 		templateUrl: "partials/main.html",
@@ -12,7 +12,11 @@ $routeProvider
 	})
 	.when('/user/:id', {
 		templateUrl: "partials/user.html",
-		controller: "userController"
+		controller: "profileController"
+	})
+	.when('edit/user/:id', {
+		templateUrl: 'partials/edit.html',
+		controller: 'userController'
 	})
 	.when('/topic/:id', {
 		templateUrl: 'partials/topic.html',

@@ -81,4 +81,12 @@ app.controller('userController', ['$scope', 'UsersFactory', '$location', '$cooki
 			$scope.errors = results.errors
 		})
 	}
+	$scope.edit = function(id){
+		$location.url(`edit/user/${id}`)
+	}
+	$scope.getUser = function(){
+		UsersFactory.getUser($routeParams.id, function(results){
+			$$scope.edit_user = results
+		})
+	}
 }]);

@@ -41,7 +41,7 @@ function UsersFactory(){
 		})
 	}	
 	this.getUser = function(id, callback){
-		$http.get(`/users/${id}`, id).then(function(results){
+		$http.get(`/users/${id}`).then(function(results){
 			callback(results.data);
 		})
 	}

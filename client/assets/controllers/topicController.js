@@ -6,20 +6,19 @@ app.controller('topicController', ['$scope', 'UsersFactory', '$location', '$cook
 	$scope.message_field =false;
 	$scope.showMessageInput = function(){
 		$scope.message_field=!($scope.message_field)
-
 	}
 	$scope.getTopic = function(){
 		UsersFactory.getTopic($routeParams.id, function(results){
 			console.log(results);
 			$scope.topic = results;
 		})
-		
+
 	}
 	$scope.createMessage = function(){
-		$scope.newMessagePost._topic = $scope.topic._id;
-		$scope.newMessagePost._user = $scope.user._id;
-		UsersFactory.createMessage($scope.newMessagePost, function(results){
-			$scope.newMessagePost = {};
+		$scope.newMessage._topic = $scope.topic._id;
+		$scope.newMessage._user = $scope.user._id;
+		UsersFactory.createMessage($scope.newMessage, function(results){
+			$scope.newMessage = {};
 			$scope.getTopic();
 		})
 	}
@@ -36,6 +35,10 @@ app.controller('topicController', ['$scope', 'UsersFactory', '$location', '$cook
 			$scope.messages = results;
 		})
 	}
+	$scope.goToUser = function(id){
+		$location.url(`user/${id}`) 
+	}
 	$scope.getTopic();
+	$scope.getMessages();
 }])
 	

@@ -1,14 +1,53 @@
-<h1>{{viewser.name}}</h1>
-<h3>Recent Messages</h3>
-<div ng-repeat='message in viewser._messages'>
-	<h4>{{message.text}}</h4>
-	<div ng-repeat = 'comment in message.comments'>
-	<p>{{comment.text}}</p>
-	<p>{{commnet._user}}</p>
-</div>
-<h3>Topics</h3>
-<div ng-repeat=''></div>
-	<h4>{</h4>
+<md-card md-colors="::{backgroundColor: '{{theme}}-primary-700'}">
+	<md-card-title>
+		<md-card-title-media>
+		  	<div class="md-media-sm card-media" layout md-colors="::{background: '{{theme}}-accent'}">
+		    	<md-icon class = "material-icons" ng-style="{color: 'white'}">person</md-icon>
+		  	</div>
+		</md-card-title-media>
+		<md-card-title-text>
+		  	<span class="md-headline">{{profile.username}}</span>
+		  	
+		  	<span class="md-subhead description">{{profile.description}}</span>
+		</md-card-title-text>
+	</md-card-title>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-fab md-mini md-icon-button" class ="md-primary" ng-click="showTopics()">
+            <md-icon class = "material-icons" ng-style="{color: 'white'}">format_list_bulleted</md-icon>
+            <md-tooltip md-visible="demo.showTooltip" md-direction="top">Topics</md-tooltip>
+        </md-button>
+		<md-button class="md-fab md-mini md-icon-button" class ="md-primary" ng-click="showMessages()">
+            <md-icon class = "material-icons" ng-style="{color: 'white'}">message</md-icon>
+            <md-tooltip md-visible="show_message_tip" md-direction="top">Messages</md-tooltip>
+        </md-button>
+	</md-card-actions>
+</md-card>
+
+<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="topic in profile._topics" ng-show="show_topics" ng-click = "goToTopic(topic._id)">
+	<md-card-title>
+		<md-card-title-text>
+			<span> In <span>{{topic._category.name}}</span>:</span>
+			<span class="md-headline">{{topic.name}}</span>
+			<span class="md-subhead"></span>
+		</md-card-title-text>
+	</md-card-title>
+</md-card>
+
+<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="message in profile._messages" ng-show="show_messages">
+	<md-card-title>
+		<md-card-title-text>
+			<span>{{message._user.username}}</span> posted on <span ng-click ='goToUser(message._topic._user._id)'>{{message._topic._user.username}}'s</span>topic:</span>
+			<span class="md-headline">{{message.text}}</span>
+			<span class="md-subhead"></span>
+		</md-card-title-text>
+		<md-card-title-media>
+			<div class="md-media-sm card-media">
+			</div>
+		</md-card-title-media>
+	</md-card-title>
+	<md-card-actions layout="row" layout-align="end center">
+	</md-card-actions>
+</md-card>
 
 
 

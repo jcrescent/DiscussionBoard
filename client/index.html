@@ -20,21 +20,22 @@
     <script src="./assets/controllers/loginController.js"></script>
     <script src="./assets/controllers/dashboardController.js"></script>
     <script src="./assets/controllers/topicController.js"></script>
+    <script src="./assets/controllers/profileController.js"></script>
+
 <body>
 <div ng-controller='userController'>
+
  <md-toolbar>
     <div class="md-toolbar-tools" >
         <md-button aria-label="Go Back">Go Back</md-button>
-        <h2>
-            <span>Talk About It</span>
-        </h2>
+        <h2><span>Talk About It</span></h2>
         <span flex></span>
         <md-button class="md-raised" aria-label="Learn More" ng-click="logout()">Logout</md-button>
         <md-button class="md-fab md-mini md-icon-button" 
                    ng-click="toggleRight()" 
                    ng-hide="isOpenRight()" 
                    class ="md-primary">
-          <md-icon class = "material-icons" ng-style="{color: 'white'}">person</md-icon>
+            <md-icon class = "material-icons" ng-style="{color: 'white'}">person</md-icon>
         </md-button>
     </div>
 </md-toolbar>
@@ -44,13 +45,15 @@
     <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
         <md-toolbar class="md-theme-light">
             <h1 class="md-toolbar-tools">{{user.username}}</h1>
-        </md-toolbar> 
-        <md-icon class = "material-icons" ng-style="{color: 'white'}">person</md-icon>
+        </md-toolbar>
+            <md-button class="md-fab md-mini md-icon-button" class ="md-primary">
+                <md-icon class = "material-icons" ng-style="{color: 'white'}">person</md-icon>
+            </md-button>
         <md-content layout-padding>
             <p>{{user.description}}</p>
-            <md-button ng-click = "edit()" class="md-primary">Edit Profile</md-button>
-            <md-button ng-click="close()" class="md-primary">Close</md-button>
-    </md-content>
+            <md-button ng-click = "edit(user._id)" class="md-primary">Edit Profile</md-button>
+            <md-button ng-click= "close()" class="md-primary">Close</md-button>
+        </md-content>
     </md-sidenav>
 </div>
 
