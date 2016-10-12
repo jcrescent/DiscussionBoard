@@ -21,16 +21,14 @@ function TopicsController(){
 	}
 	this.create = function(req, res){
 		Users.findOne({_id: req.body._userid}, function(err, user){
-			var new_topic = new Topics({name: req.body.name, description: req.body.description, votes: 0;});
+			var new_topic = new Topics({name: req.body.name, description: req.body.description});
 			new_topic._user = req.body._userid;
-			console.log(new_topic)
 			new_topic.save(function(err){
 				user._topics.push(new_topic._id);
 				user.save(function(err){
 					Categories.findOne({_id: req.body._categoryid}, function(err, category){
 						new_topic._category = req.body._categoryid;
-						new_topic.save(function(err){
-							console.log(new_topic)
+						new_topic.save(function(err){			
 							category._topics.push(new_topic._id);
 							category.save(function(err){
 								if(err){
@@ -47,15 +45,9 @@ function TopicsController(){
 	}
 	this.show = function(req, res){
 		Topics.findOne({_id: req.params.id})
-		.populate({
-			path: '_messages', 
-				populate:[
-					{path: "_user"},
-					{path: "_comments", 
-						populate:
-						{path: "_user"}
-					}
-				]
+		.populate(
+			{path: '_messages', populate:
+				[{path: "_user"},{path: "_comments", populate:{path: "_user"}}]
 		})
 		.populate("_user")
 		.populate("_category")
@@ -63,11 +55,10 @@ function TopicsController(){
 			if(err){
 				res.json(err);
 			}else{
-				res.json(topic);
+				res.json(topic)
 			}
 		})
 	}
-	this.vote = function
 }
 
 module.exports = new TopicsController();

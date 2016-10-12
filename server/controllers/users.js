@@ -31,15 +31,18 @@ function UsersController(){
 		})
     }
     this.show = function(req, res){
-    	Users.findOne({_id: req.body.id})
+    	Users.findOne({_id: req.params.id})
         .populate({
             path: '_messages', 
-                populate:[{
-                    path: "_comments",
-                        populate:[{
-                            path:"_user"
-                        }] 
-                    }]
+                populate:
+                    [{path: "_comments", populate:{path: '_user'}},
+                    {path: '_topic', populate: {path: '_user'}}]
+                })
+        .populate({
+            path: '_topics', 
+                populate: 
+                    [{path: '_category'},
+                    {path: '_user'}]
                 })
         .exec(function(err, user){
             if(err){

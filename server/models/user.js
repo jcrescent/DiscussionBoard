@@ -73,9 +73,6 @@ var TopicSchema = new mongoose.Schema({
 		type: String, 
 		required: [true, "Must enter a description"]
 	},
-	votes: {
-		type: Number 
-	}
 	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
 	_user: {type: Schema.Types.ObjectId, ref: "Users"},
 	_category: {type: Schema.Types.ObjectId, ref: "Categories"}
@@ -104,6 +101,11 @@ var CategorySchema = new mongoose.Schema({
 	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
 }, {timestamps: true});
 
+var UpvoteSchema = new mongoose.Schema({
+	_user: {type: Schema.Types.ObjectId, ref: "Users"},
+	_topic: {type: Schema.Types.ObjectId, ref: "Topics"}
+});
+
 mongoose.model('Users', UserSchema);
 var Users = mongoose.model('Users')
 mongoose.model('Messages', MessageSchema); 
@@ -114,6 +116,8 @@ mongoose.model('Topics', TopicSchema);
 var Topics = mongoose.model('Topics');
 mongoose.model("Categories", CategorySchema);
 var Categories = mongoose.model("Categories");
+mongoose.model("Upvotes", UpvoteSchema);
+var Upvotes = mongoose.model("Upvotes");
 // 	email: {
 // 		type: String, 
 // 		unique: true,
