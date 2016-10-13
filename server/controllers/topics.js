@@ -61,7 +61,7 @@ function TopicsController(){
 		})
 	}
 	this.destroy = function(req, res){
-		Topics.remove({_id: req.body._id}, function(err){
+		Topics.remove({_id: req.params.id}, function(err){
 			if(err){
 				res.json(err);
 			}else{
