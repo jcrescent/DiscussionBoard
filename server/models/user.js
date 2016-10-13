@@ -61,7 +61,8 @@ var UserSchema = new mongoose.Schema({
 	},  
 	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
 	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
-	_comments: [{type: Schema.Types.ObjectId, ref: "Comments"}]
+	_comments: [{type: Schema.Types.ObjectId, ref: "Comments"}],
+	_likes: [{type: Schema.Types.ObjectId, ref: "Likes"}]
 	},	{timestamps: true});
 
 var TopicSchema = new mongoose.Schema({
@@ -75,7 +76,8 @@ var TopicSchema = new mongoose.Schema({
 	},
 	_messages: [{type: Schema.Types.ObjectId, ref: "Messages"}],
 	_user: {type: Schema.Types.ObjectId, ref: "Users"},
-	_category: {type: Schema.Types.ObjectId, ref: "Categories"}
+	_category: {type: Schema.Types.ObjectId, ref: "Categories"},
+	_likes: [{type: Schema.Types.ObjectId, ref: "Likes"}]
 	}, {timestamps: true});
 
 var MessageSchema = new mongoose.Schema({
@@ -101,7 +103,7 @@ var CategorySchema = new mongoose.Schema({
 	_topics: [{type: Schema.Types.ObjectId, ref: "Topics"}],
 }, {timestamps: true});
 
-var UpvoteSchema = new mongoose.Schema({
+var LikesSchema = new mongoose.Schema({
 	_user: {type: Schema.Types.ObjectId, ref: "Users"},
 	_topic: {type: Schema.Types.ObjectId, ref: "Topics"}
 });
@@ -116,8 +118,8 @@ mongoose.model('Topics', TopicSchema);
 var Topics = mongoose.model('Topics');
 mongoose.model("Categories", CategorySchema);
 var Categories = mongoose.model("Categories");
-mongoose.model("Upvotes", UpvoteSchema);
-var Upvotes = mongoose.model("Upvotes");
+mongoose.model("Likes", LikesSchema);
+var Likes = mongoose.model("Likes");
 // 	email: {
 // 		type: String, 
 // 		unique: true,

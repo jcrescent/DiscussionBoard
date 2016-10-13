@@ -10,11 +10,12 @@ function TopicsController(){
 		Topics.find({})
 		.populate('_user')
 		.populate('_category')
+		.populate('_likes')
 		.exec(function(err, topics){
 			if(err){
 				res.json(err);
 			}else{
-				console.log(topics);
+				console.log(topics[0]._likes[0]);
 				res.json(topics);
 			}
 		})
@@ -59,6 +60,14 @@ function TopicsController(){
 			}
 		})
 	}
+	this.destroy = function(req, res){
+		Topics.remove({_id: req.body._id}, function(err){
+			if(err){
+				res.json(err);
+			}else{
+				res.send();
+			}
+		})
+	}
 }
-
 module.exports = new TopicsController();
