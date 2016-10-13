@@ -39,6 +39,11 @@ function UsersFactory(){
 		$http.get('/topics').then(function(results){
 			callback(results.data);
 		})
+	}
+	this.destroyTopic = function(id, callback){
+		$http.post(`/topics/destroy/${id}`).then(function(results){
+			callback(results.data);
+		})
 	}	
 	this.getUser = function(id, callback){
 		$http.get(`/users/${id}`).then(function(results){
@@ -60,6 +65,21 @@ function UsersFactory(){
 			callback(results.data);
 		})
 	}	
+	this.createLike = function(user_id, topic_id, callback){
+		$http.post('/likes/create', {user: user_id, topic: topic_id}).then(function(results){
+			callback(results.data);
+		})
+	}
+	this.getLikes = function(user_id, callback){
+		$http.get(`/likes/get/${user_id}`).then(function(results){
+			callback(results.data);
+		})
+	}
+	this.destroyLike = function(user_id, topic_id, callback){
+		$http.post('/likes/destroy', {user: user_id, topic: topic_id}).then(function(results){
+			callback(results.data);
+		})		
+	}
 }
   return new UsersFactory();	
 }]);

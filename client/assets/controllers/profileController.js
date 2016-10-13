@@ -4,13 +4,10 @@ app.controller('profileController', ['$scope', 'UsersFactory', '$location', '$co
 	$scope.show_message_tip = false;
 	$scope.show_topic_tip = false;
 	
-
-
 	$scope.show_topics = false;
 	$scope.showTopics = function(){
 		$scope.show_topics = !($scope.show_topics);
 		if ($scope.show_messages == true){
-
 			$scope.show_messages = false;
 		}
 	}
@@ -22,7 +19,7 @@ app.controller('profileController', ['$scope', 'UsersFactory', '$location', '$co
 			$scope.show_topics = false;
 		}
 	}
-	
+
 	$scope.getProfile = function(){
 		UsersFactory.getUser($routeParams.id, function(results){
 			$scope.profile = results;

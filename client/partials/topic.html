@@ -9,7 +9,7 @@
 	</md-card-title>
 	<md-card-actions layout="row" layout-align="end center">
 		<md-button class="md-fab md-mini md-icon-button" class ="md-primary" ng-click="showMessageInput()"><md-icon class = "material-icons" ng-style="{color: 'white'}">add</md-icon></md-button>
-		<md-button class="md-fab md-mini md-icon-button" class ="md-primary" ng-click = ''><md-icon class = "material-icons" ng-style="{color: 'white'}">thumb_up</md-icon></md-button>
+		<md-button class="md-fab md-mini md-icon-button" class ="md-primary" ng-click = ''><md-icon class = "material-icons" ng-style="{color: 'white'}" ng-contoller = "likeController" ng-click='createLike(topic._id)' >thumb_up</md-icon></md-button>
 	</md-card-actions>
 </md-card>
 

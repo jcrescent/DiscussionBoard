@@ -1,4 +1,4 @@
-
+<!-- city select -->
  <md-toolbar>
 	<div class="md-toolbar-tools">
         <span flex>
@@ -8,7 +8,7 @@
         </span>
 	</div>
 </md-toolbar>
-
+<!-- Location card -->
     <md-card md-colors="::{backgroundColor: '{{theme}}-primary-700'}">
 	  	<md-card-title>
 	  		<md-card-title-media>
@@ -25,7 +25,7 @@
 		    <md-button class="md-fab md-mini md-icon-button" class ="md-primary" ng-click="show_topic_input()"><md-icon class = "material-icons" ng-style="{color: 'white'}">add</md-icon></md-button>
 	    </md-card-actions>
     </md-card>
-
+<!-- Topic input -->
 <form ng-submit='createTopic()' ng-show="topic_field">
 		<md-input-container class="md-block">
 			<label>Topic</label>
@@ -41,10 +41,10 @@
 		</md-input-container>
 		<input type="submit" value="Post">
 </form>
-
+<!-- Topic cards -->
 <div ng-repeat='topic in topics' ng-if='topic._category._id == selected._id || category == all'>
 	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-	<md-button ng-click = goToTopic(topic._id)>
+	<md-button ng-click = >goToTopic(topic._id)
 		<md-card-title>
 			<md-card-title-text>
 				<span><span>{{topic._user.username}}</span> posted in <span>{{topic._category.name}}</span>:</span>
@@ -58,7 +58,26 @@
 		<md-card-actions layout="row" layout-align="end">
 			<p>{{topic._messages.length}}</p>
 			<md-icon class="material-icons" ng-style="{color: 'grey'}">message</md-icon>
-			<md-button class="md-fab md-mini md-icon-button" class ="md-primary"><md-icon class = "material-icons" ng-style="{color: 'white'}">thumb_up</md-icon></md-button>
+			<md-button  ng-if= "!(likes.includes(topic._id))" 
+ 						class="md-fab md-mini md-icon-button" 
+						class ="md-primary" 
+						ng-click="createLike(topic._id)">
+						<md-icon class = "material-icons" ng-style="{color: 'white'}">thumb_up</md-icon>
+						<p>{{topic._likes.length}}</p>
+			</md-button>
+			<md-button  ng-if= "likes.includes(topic._id)" 
+						class="md-fab md-mini md-icon-button" 
+						class ="md-primary" 
+						ng-click="destroyLike(topic._id)">
+						<md-icon class = "material-icons" ng-style="{color: 'grey'}">thumb_up</md-icon>
+						<p>{{topic._likes.length}}</p>
+			</md-button>
+			<md-button	ng-if= "user._id == topic._user._id" 
+						class="md-fab md-mini md-icon-button" 
+						class ="md-primary" 
+						ng-click="destroyTopic(topic._id)">
+						<md-icon class = "material-icons" ng-style="{color: 'white'}">delete</md-icon>
+			</md-button>
 		</md-card-actions>
 	</md-button>
 	</md-card>

@@ -75,7 +75,7 @@ app.controller('userController', ['$scope', 'UsersFactory', '$location', '$cooki
 				user = {_id: results._id, name: results.name, description: results.description}
 				$cookies.putObject('user', {_id: results._id, name: results.name, description: results.description});
 				$scope.user = $cookies.getObject('user');
-				$scope.newUser={};
+				$scope.newUser = {};
 				$location.url('/dashboard')
 			}
 			$scope.errors = results.errors

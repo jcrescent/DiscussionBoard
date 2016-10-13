@@ -1,8 +1,10 @@
 app.controller('topicController', ['$scope', 'UsersFactory', '$location', '$cookies','$routeParams', function($scope, UsersFactory, $location, $cookies, $routeParams){
 	$scope.user = $cookies.getObject('user');
 	$scope.topic;
+	$scope.likes;
 	$scope.newCommentPost={};
 	$scope.newMessagePost={};
+
 	$scope.message_field =false;
 	$scope.showMessageInput = function(){
 		$scope.message_field=!($scope.message_field)
@@ -12,7 +14,6 @@ app.controller('topicController', ['$scope', 'UsersFactory', '$location', '$cook
 			console.log(results);
 			$scope.topic = results;
 		})
-
 	}
 	$scope.createMessage = function(){
 		$scope.newMessage._topic = $scope.topic._id;
@@ -36,8 +37,22 @@ app.controller('topicController', ['$scope', 'UsersFactory', '$location', '$cook
 		})
 	}
 	$scope.goToUser = function(id){
-		$location.url(`user/${id}`) 
+		$location.url(`user/${id}`);
 	}
+
+	$scope.createLike =function(){
+		UsersFactory.createLike($scope.topic._id, function(results){
+			$scope.getLikes($scope.user._id);
+		})
+	}
+	
+	$scope.getLikes = function(){
+		UsersFactory.getLikes($scope.user._id, function(results){
+			$scope.likes = results;
+		})
+	}
+
+	$scope.getLikes();
 	$scope.getTopic();
 	$scope.getMessages();
 }])
