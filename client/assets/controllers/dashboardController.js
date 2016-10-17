@@ -1,3 +1,4 @@
+
 app.controller('dashboardController', ['$scope', 'UsersFactory', '$location', '$cookies','$timeout', '$mdSidenav', '$log', function($scope, UsersFactory, $location, $cookies,$timeout, $mdSidenav, $log){
 	$scope.all = {name: "All", description: "All topics from all Dojos"}
 	$scope.user = $cookies.getObject('user');

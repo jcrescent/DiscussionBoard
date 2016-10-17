@@ -42,8 +42,8 @@
 		<input type="submit" value="Post">
 </form>
 <!-- Topic cards -->
-<div ng-repeat='topic in topics' ng-if='topic._category._id == selected._id || category == all'>
-	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+<div ng-repeat='topic in topics' ng-if='topic._category._id == selected._id || category == all' id = ''>
+	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch >
 	<md-button ng-click = >goToTopic(topic._id)
 		<md-card-title>
 			<md-card-title-text>
@@ -56,28 +56,26 @@
 			</md-card-title-media>
 		</md-card-title>
 		<md-card-actions layout="row" layout-align="end">
-			<p>{{topic._messages.length}}</p>
-			<md-icon class="material-icons" ng-style="{color: 'grey'}">message</md-icon>
+			<md-icon class="material-icons" ng-style="{color: 'grey'}">message</md-icon><span>{{topic._messages.length}}</span>
 			<md-button  ng-if= "!(likes.includes(topic._id))" 
  						class="md-fab md-mini md-icon-button" 
 						class ="md-primary" 
 						ng-click="createLike(topic._id)">
 						<md-icon class = "material-icons" ng-style="{color: 'white'}">thumb_up</md-icon>
-						<p>{{topic._likes.length}}</p>
 			</md-button>
 			<md-button  ng-if= "likes.includes(topic._id)" 
 						class="md-fab md-mini md-icon-button" 
 						class ="md-primary" 
 						ng-click="destroyLike(topic._id)">
 						<md-icon class = "material-icons" ng-style="{color: 'grey'}">thumb_up</md-icon>
-						<p>{{topic._likes.length}}</p>
+						
 			</md-button>
 			<md-button	ng-if= "user._id == topic._user._id" 
 						class="md-fab md-mini md-icon-button" 
 						class ="md-primary" 
 						ng-click="destroyTopic(topic._id)">
 						<md-icon class = "material-icons" ng-style="{color: 'white'}">delete</md-icon>
-			</md-button>
+			</md-button><span>{{topic._likes.length}}</span>
 		</md-card-actions>
 	</md-button>
 	</md-card>
