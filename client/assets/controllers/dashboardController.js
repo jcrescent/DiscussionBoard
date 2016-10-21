@@ -72,11 +72,6 @@ app.controller('dashboardController', ['$scope', 'UsersFactory', '$location', '$
 			};
 		})
 	}
-	// $scope.userlikes = function(){
-	// 	for(var i = 0; i<$scope.topics.length; i++){
-	// 		$scope.likesArr.push($scope.topics[i]._likes._user)
-	// 	}
-	// }
 	$scope.allCategories();
 	$scope.allTopics();
 	$scope.getLikes($scope.user._id);

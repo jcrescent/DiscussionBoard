@@ -1,5 +1,5 @@
 
-var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'ngCookies', ]);
+var app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngMessages', 'ngCookies', 'ngAnimate']);
 app.config(function ($routeProvider,$mdThemingProvider) {
 $routeProvider
 	.when('/main', {
@@ -30,3 +30,16 @@ $routeProvider
 		redirectTo: '/'
 	})
 });
+app.directive('slideDown', ['$animate',
+    function ($animate) {
+        return {
+            link: function (scope, elem, attrs) {
+                elem.on('click', function () {
+                    var target = getElementById('form');
+                    $animate.addClass(target, 'reveal', function () {
+                        self.removeClass('reveal');
+                    });
+                });
+            }
+        };
+    }]);

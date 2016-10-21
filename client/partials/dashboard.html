@@ -1,4 +1,6 @@
 <!-- city select -->
+<!-- <div layout="column" layout-xs = "row">
+<div flex>
  <md-toolbar>
 	<div class="md-toolbar-tools">
         <span flex>
@@ -8,7 +10,28 @@
         </span>
 	</div>
 </md-toolbar>
+</div> -->
+	<div layout="column" flex-xs="100" flex-sm="100" flex="33" layout-align="end center">
+    	<md-menu>
+      		<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+      			<md-icon class = "material-icons md-48" ng-style="{color: 'grey'}" >menu</md-icon>
+      		</md-button>
+      		<md-menu-content width="6">
+<!--       			<md-menu-item>
+      				<md-button ng-click="showall()">
+      					<md-icon md-menu-align-target md-svg-icon="call:no-sim"></md-icon>
+      				</md-button> -->
+        		<md-menu-item ng-repeat="category in categories">
+          			<md-button ng-click="selectCategory(category)">
+            			<md-icon md-menu-align-target md-svg-icon="call:no-sim"></md-icon>
+            			{{category.name}}
+         			</md-button>
+       			</md-menu-item>
+    		</md-menu-content>
+    	</md-menu>
+  	</div>
 <!-- Location card -->
+<div flex>
     <md-card md-colors="::{backgroundColor: '{{theme}}-primary-700'}">
 	  	<md-card-title>
 	  		<md-card-title-media>
@@ -26,7 +49,7 @@
 	    </md-card-actions>
     </md-card>
 <!-- Topic input -->
-<form ng-submit='createTopic()' ng-show="topic_field">
+<form ng-submit='createTopic()' ng-show="topic_field" id='form'>
 		<md-input-container class="md-block">
 			<label>Topic</label>
 			<input required ng-model='newTopic.name'>
@@ -42,10 +65,13 @@
 		<input type="submit" value="Post">
 </form>
 <!-- Topic cards -->
-<div ng-repeat='topic in topics' ng-if='topic._category._id == selected._id || category == all' id = ''>
+<div ng-repeat='topic in topics track by $index' ng-if='topic._category._id == selected._id || category == all' class='slide' >
 	<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch >
-	<md-button ng-click = >goToTopic(topic._id)
+	<md-button ng-click = >'goToTopic(topic._id)'
 		<md-card-title>
+			<div>
+				<h1>{{topic._likes.length}}</h1>
+			</div>
 			<md-card-title-text>
 				<span><span>{{topic._user.username}}</span> posted in <span>{{topic._category.name}}</span>:</span>
 				<span class="md-headline">{{topic.name}}</span>
@@ -55,8 +81,10 @@
 				<div class="md-media-sm card-media"></div>
 			</md-card-title-media>
 		</md-card-title>
-		<md-card-actions layout="row" layout-align="end">
-			<md-icon class="material-icons" ng-style="{color: 'grey'}">message</md-icon><span>{{topic._messages.length}}</span>
+		<md-card-actions layout="row" layout-align="end center">	
+			<md-button>
+				<md-icon class="material-icons" ng-style="{color: 'grey'}">message</md-icon><span>{{topic._messages.length}}</span>
+			</md-button>
 			<md-button  ng-if= "!(likes.includes(topic._id))" 
  						class="md-fab md-mini md-icon-button" 
 						class ="md-primary" 
@@ -75,8 +103,10 @@
 						class ="md-primary" 
 						ng-click="destroyTopic(topic._id)">
 						<md-icon class = "material-icons" ng-style="{color: 'white'}">delete</md-icon>
-			</md-button><span>{{topic._likes.length}}</span>
+			</md-button><span></span>
 		</md-card-actions>
 	</md-button>
 	</md-card>
+</div>
+</div>
 </div>
