@@ -8,7 +8,6 @@ var Likes = mongoose.model('Likes');
 
 function LikesController(){
 	this.create = function(req, res){
-		console.log(req.body)
 		Users.findOne({_id:req.body.user}, function(err, user){
 			var new_like = new Likes({})
 			new_like._user = req.body.user;

@@ -7,7 +7,6 @@ var Topics = mongoose.model('Topics');
 function CommentsController(){
 	this.create = function(req, res){
 		Messages.findOne({_id: req.body._message}, function(err, message){
-			console.log(req.body)
 			var new_comment = new Comments({text: req.body.text})
 			new_comment._message = message._id;
 			new_comment.save(function(err){
